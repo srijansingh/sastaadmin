@@ -15,7 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import "./ViewOrder.css";
 import {  Checkbox } from "@material-ui/core";
-import  { API_KEY, BASE_URL } from '../../config/baseUrl';
+import  { API_KEY, API_URL, BASE_URL } from '../../config/baseUrl';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -115,12 +115,11 @@ class InactiveOrder extends Component {
             itemIndex:i
         });
         console.log(ref)
-        fetch(`/api/v1/compare/search?api_key=${API_KEY}&product=${ref}`, {
+        fetch(`${API_URL}/api/v1/compare/search?api_key=${API_KEY}&product=${ref}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json",
-                Authorization: 'Bearer '+ this.props.token
+                "Content-Type": "application/json"
             }
         })
         .then(res => {
