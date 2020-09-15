@@ -9,7 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { API_KEY, BASE_URL } from "../../config/baseUrl";
+import { API_KEY, API_URL, BASE_URL } from "../../config/baseUrl";
 
 
 import Avatar from '@material-ui/core/Avatar';
@@ -21,6 +21,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Container from '@material-ui/core/Container';
 import { CircularProgress} from "@material-ui/core";
+import axios from "axios";
 
 const styles = (theme) => ({
     root: {
@@ -146,23 +147,14 @@ class  Dashboard extends Component {
             isSearching:true
        })
 
-       fetch(`/api/v1/compare/search?api_key=${API_KEY}&product=${this.state.title}`, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                Authorization: 'Bearer '+ this.props.token
-            }
-        })
-        .then(res => {
-            if(res.status !==200){
-                throw new Error('Failed to fetch the product')
-            }
-            return res.json()
-        }).then(response => {
+       axios.get(`${API_URL}/api/v1/compare/search?api_key=${API_KEY}&product=${this.state.title}`, {
+        headers: {
+            "Accept": "application/json"
+        }
+    }).then(response => {
             console.log(response)
             this.setState({
-                products:response.data,
+                products:response.data.data,
                 isSearching:false
             }) 
         })

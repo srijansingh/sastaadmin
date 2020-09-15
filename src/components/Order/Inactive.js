@@ -18,6 +18,7 @@ import {  Checkbox } from "@material-ui/core";
 import  { API_KEY, API_URL, BASE_URL } from '../../config/baseUrl';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
+import axios from "axios"
 
 const styles = (theme) => ({
     root: {
@@ -115,22 +116,15 @@ class InactiveOrder extends Component {
             itemIndex:i
         });
         console.log(ref)
-        fetch(`${API_URL}/api/v1/compare/search?api_key=${API_KEY}&product=${ref}`, {
-            method: "GET",
+        axios.get(`${API_URL}/api/v1/compare/search?api_key=${API_KEY}&product=${ref}`, {
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Accept": "application/json"
             }
         })
-        .then(res => {
-            if(res.status !==200){
-                throw new Error('Failed to fetch')
-            }
-            return res.json()
-        }).then(response => {
+       .then(response => {
             console.log(response)
             this.setState({
-                product:response.data,
+                product:response.data.data,
                 isStarted:false
             }) 
         })

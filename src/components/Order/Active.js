@@ -15,9 +15,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import "./ViewOrder.css";
 import {  Checkbox } from "@material-ui/core";
-import  { API_KEY, BASE_URL } from '../../config/baseUrl';
+import  { API_KEY, BASE_URL, API_URL } from '../../config/baseUrl';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
+import axios from 'axios';
 
 const styles = (theme) => ({
     root: {
@@ -115,23 +116,14 @@ class ViewOrder extends Component {
             itemIndex:i
         });
         console.log(ref)
-        fetch(`/api/v1/compare/search?api_key=${API_KEY}&product=${ref}`, {
-            method: "GET",
+        axios.get(`${API_URL}/api/v1/compare/search?api_key=${API_KEY}&product=${ref}`, {
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                Authorization: 'Bearer '+ this.props.token
+                "Accept": "application/json"
             }
-        })
-        .then(res => {
-            if(res.status !==200){
-                throw new Error('Failed to fetch the product')
-            }
-            return res.json()
         }).then(response => {
             console.log(response)
             this.setState({
-                product:response.data,
+                product:response.data.data,
                 isStarted:false
             }) 
         })
