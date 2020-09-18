@@ -31,7 +31,7 @@ export default class Password extends Component {
         this.setState({
             isLoading:true
         })
-        fetch(`http://localhost:8010/auth/password`, {
+        fetch(`https://server.mysastaprice.com/auth/password`, {
             method: "PUT",
             headers: {
                 "Accept": "application/json",
