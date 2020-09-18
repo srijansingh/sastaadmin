@@ -12,6 +12,7 @@ import ViewOrder from './components/Order/Active';
 import InactiveOrder from './components/Order/Inactive';
 
 import "./App.css"; 
+import Password from './auth/component/password';
 
 class App extends Component {
   state = {
@@ -178,13 +179,19 @@ render(){
             )}
           />
 
-      {/* <Route exact token={this.state.token} path="/order/:id" component={SingleOrder}/>   */}
-
            <Route
             path="/customers"
             exact
             render={props => (
               <Customer userId={this.state.userId}  token={this.state.token} />
+            )}
+          />
+
+          <Route
+            path="/password"
+            exact
+            render={props => (
+              <Password userId={this.state.userId}  token={this.state.token} />
             )}
           />
 
