@@ -60,7 +60,7 @@ logoutHandler = () => {
   loginHandler = (event, authData) => {
     event.preventDefault();
     this.setState({ authLoading: true });
-    fetch('https://server.mysastaprice.com/auth/login', {
+    fetch('https://server.mysastaprice.tk/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
